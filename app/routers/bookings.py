@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from app.database import get_db
-from app.models import Booking, Customer, Vehicle, Payment, Settings
+from app.models import Booking, Customer, Vehicle, Payment, Settings, User
 from app.schemas import QuoteRequest, QuoteResponse, BookingCreate, BookingOut, BookingDetailOut
 from app.services.pricing_service import PricingService
 from app.services.stripe_service import StripeService

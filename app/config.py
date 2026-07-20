@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Colchester Taxi Booking System"
-    DATABASE_URL: str = "sqlite:////Users/mo/Projects/Taxi/taxi.db"
+    DATABASE_URL: str = "sqlite:///taxi.db"
     JWT_SECRET: str = "supersecretkeychangeinprod"
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440  # 1 day
