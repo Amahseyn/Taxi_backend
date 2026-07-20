@@ -19,6 +19,27 @@ jobs:
             set -e
             cd /home/Taxi/Taxi_backend
             git pull origin main
+
+            # Install PostgreSQL if not present
+            if ! command -v psql &> /dev/null; then
+              sudo apt-get update
+              sudo apt-get install -y postgresql postgresql-contrib
+              sudo systemctl start postgresql
+              sudo systemctl enable postgresql
+            fi
+
+            # Create database user and database if they don't exist
+            sudo -u postgres psql -c "CREATE USER taxi_user WITH PASSWORD 'TaxiDb2026!SecurePass';" 2>/dev/null || true
+            sudo -u postgres psql -c "CREATE DATABASE taxi_db OWNER taxi_user;" 2>/dev/null || true
+            sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE taxi_db TO taxi_user;" 2>/dev/null || true
+
+            # Install Python dependencies
             source .venv/bin/activate
             pip install -r requirements.txt
+            pip install psycopg2-binary
+
+            # Seed database tables and initial data
+            python3 seed.py
+
+            # Restart backend service
             pm2 startOrReload ecosystem.config.js
