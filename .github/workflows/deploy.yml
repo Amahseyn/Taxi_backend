@@ -24,7 +24,6 @@ jobs:
           script: |
             set -e
             cd /home/Taxi/Taxi_backend
-            sudo chown -R deploy:deploy /home/Taxi/Taxi_backend
             git pull origin main
 
             # Install PostgreSQL if not present
